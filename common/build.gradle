@@ -1,0 +1,7 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    compileOnly "curse.maven:geckolib-388172:${rootProject.geckolib_curse_id}"
+}

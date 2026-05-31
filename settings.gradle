@@ -1,0 +1,5 @@
+rootProject.name = "blue_student"
+
+include("common")
+include("fabric")
+include("neoforge")
