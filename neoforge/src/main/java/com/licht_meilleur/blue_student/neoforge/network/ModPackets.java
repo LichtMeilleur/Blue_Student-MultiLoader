@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.network;
+package com.licht_meilleur.blue_student.neoforge.network;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 import com.licht_meilleur.blue_student.block.entity.CraftChamberBlockEntity;
 import com.licht_meilleur.blue_student.craft_chamber.CraftChamberRecipes;
 import com.licht_meilleur.blue_student.entity.AbstractStudentEntity;

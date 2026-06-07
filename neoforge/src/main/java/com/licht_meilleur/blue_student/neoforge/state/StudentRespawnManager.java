@@ -1,6 +1,7 @@
-package com.licht_meilleur.blue_student.state;
+package com.licht_meilleur.blue_student.neoforge.state;
 
 import com.licht_meilleur.blue_student.entity.AbstractStudentEntity;
+import com.licht_meilleur.blue_student.state.StudentWorldState;
 import com.licht_meilleur.blue_student.student.StudentId;
 import com.licht_meilleur.blue_student.student.StudentPresenceState;
 import com.licht_meilleur.blue_student.util.DimensionTransferHelper;

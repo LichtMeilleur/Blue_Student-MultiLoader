@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.inventory;
+package com.licht_meilleur.blue_student.neoforge.inventory;
 
-import com.licht_meilleur.blue_student.registry.ModScreenHandlers;
+import com.licht_meilleur.blue_student.neoforge.registry.ModScreenHandlers;
 import com.licht_meilleur.blue_student.student.IStudentEntity;
 import com.licht_meilleur.blue_student.student.StudentEquipments;
 import net.minecraft.world.entity.Entity;

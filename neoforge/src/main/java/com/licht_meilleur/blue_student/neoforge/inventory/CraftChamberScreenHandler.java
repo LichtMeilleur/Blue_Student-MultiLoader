@@ -1,7 +1,7 @@
-package com.licht_meilleur.blue_student.inventory;
+package com.licht_meilleur.blue_student.neoforge.inventory;
 
 import com.licht_meilleur.blue_student.block.entity.CraftChamberBlockEntity;
-import com.licht_meilleur.blue_student.registry.ModScreenHandlers;
+import com.licht_meilleur.blue_student.neoforge.registry.ModScreenHandlers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

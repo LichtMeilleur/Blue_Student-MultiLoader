@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.loot;
+package com.licht_meilleur.blue_student.neoforge.loot;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 
 public final class ModLoot {
     private ModLoot() {

@@ -1,7 +1,19 @@
 plugins {
+    id 'net.neoforged.moddev' version '2.0.141'
     id 'java-library'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+neoForge {
+    version = rootProject.neo_version
 }
 
 dependencies {
     compileOnly "curse.maven:geckolib-388172:${rootProject.geckolib_curse_id}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
 }

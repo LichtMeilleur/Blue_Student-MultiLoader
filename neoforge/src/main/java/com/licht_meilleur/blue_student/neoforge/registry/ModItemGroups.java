@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.registry;
+package com.licht_meilleur.blue_student.neoforge.registry;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

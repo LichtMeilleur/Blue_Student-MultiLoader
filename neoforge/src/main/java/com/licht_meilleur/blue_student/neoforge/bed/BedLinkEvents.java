@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.bed;
+package com.licht_meilleur.blue_student.neoforge.bed;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 import com.licht_meilleur.blue_student.block.OnlyBedBlock;
 import com.licht_meilleur.blue_student.state.StudentWorldState;
 import com.licht_meilleur.blue_student.student.StudentId;

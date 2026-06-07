@@ -1,6 +1,6 @@
-package com.licht_meilleur.blue_student.registry;
+package com.licht_meilleur.blue_student.neoforge.registry;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 import com.licht_meilleur.blue_student.entity.GunTrainEntity;
 import com.licht_meilleur.blue_student.entity.TrainEntity;
 import com.licht_meilleur.blue_student.entity.go_go_train.GoGoGunTrainEntity;

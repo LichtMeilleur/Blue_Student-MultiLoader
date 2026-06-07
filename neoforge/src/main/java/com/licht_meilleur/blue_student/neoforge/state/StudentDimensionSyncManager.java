@@ -1,6 +1,7 @@
-package com.licht_meilleur.blue_student.state;
+package com.licht_meilleur.blue_student.neoforge.state;
 
 import com.licht_meilleur.blue_student.entity.AbstractStudentEntity;
+import com.licht_meilleur.blue_student.state.StudentWorldState;
 import com.licht_meilleur.blue_student.student.StudentAiMode;
 import com.licht_meilleur.blue_student.student.StudentId;
 import com.licht_meilleur.blue_student.student.StudentPresenceState;
@@ -66,6 +67,7 @@ public final class StudentDimensionSyncManager {
 
         BlockPos spawn = DimensionTransferHelper.findSafeNear(ownerLevel, owner.blockPosition());
 
+        // 1. 記録上の旧ディメンションにロード済み個体がいるなら、同個体転送を優先
         AbstractStudentEntity found = findLoadedStudent(server, data);
         if (found != null && found.isAlive()) {
             if (found.getAiMode() != StudentAiMode.FOLLOW) {
@@ -76,13 +78,23 @@ public final class StudentDimensionSyncManager {
                 return;
             }
 
-            boolean ok = found.teleportToWorldForCallback(ownerLevel, spawn, owner.getYRot());
-            if (ok) {
-                state.setStudent(sid, found.getUUID(), owner.getUUID(), ownerLevel, spawn);
+            AbstractStudentEntity moved =
+                    DimensionTransferHelper.transferStudent(found, ownerLevel, spawn, owner.getYRot());
+
+            if (moved != null) {
+                moved.setDeltaMovement(Vec3.ZERO);
+                moved.getNavigation().stop();
+                moved.fallDistance = 0;
+                moved.noFallTicks = Math.max(moved.noFallTicks, 20);
+
+                cleanupDuplicates(server, sid, owner.getUUID(), moved.getUUID());
+                state.setStudent(sid, moved.getUUID(), owner.getUUID(), ownerLevel, spawn);
             }
+
             return;
         }
 
+        // 2. packed があるなら復元。ただし復元後に旧個体が残っていないか掃除
         if (state.isPacked(sid) || state.getPacked(sid) != null) {
             AbstractStudentEntity spawned =
                     DimensionTransferHelper.spawnPackedStudent(ownerLevel, sid, spawn, owner.getYRot());
@@ -90,12 +102,16 @@ public final class StudentDimensionSyncManager {
             if (spawned != null) {
                 spawned.setDeltaMovement(Vec3.ZERO);
                 spawned.getNavigation().stop();
+                spawned.fallDistance = 0;
                 spawned.noFallTicks = Math.max(spawned.noFallTicks, 20);
+
+                cleanupDuplicates(server, sid, owner.getUUID(), spawned.getUUID());
                 state.setStudent(sid, spawned.getUUID(), owner.getUUID(), ownerLevel, spawn);
                 return;
             }
         }
 
+        // 3. 見つからない場合は MISSING
         state.markMissing(sid, ownerLevel);
     }
 
@@ -115,13 +131,35 @@ public final class StudentDimensionSyncManager {
     }
 
     private static String dimensionId(ServerLevel level) {
-        String raw = level.dimension().toString();
+        return level.dimension().toString();
+    }
 
-        int idx = raw.lastIndexOf(" / ");
-        if (idx >= 0 && raw.endsWith("]")) {
-            return raw.substring(idx + 3, raw.length() - 1);
+    private static void cleanupDuplicates(
+            MinecraftServer server,
+            StudentId sid,
+            java.util.UUID ownerUuid,
+            java.util.UUID keepUuid
+    ) {
+        for (ServerLevel level : server.getAllLevels()) {
+            for (Entity entity : level.getAllEntities()) {
+                if (!(entity instanceof AbstractStudentEntity student)) {
+                    continue;
+                }
+
+                if (student.getUUID().equals(keepUuid)) {
+                    continue;
+                }
+
+                if (student.getStudentId() != sid) {
+                    continue;
+                }
+
+                if (student.getOwnerUuid() == null || !student.getOwnerUuid().equals(ownerUuid)) {
+                    continue;
+                }
+
+                student.discard();
+            }
         }
-
-        return raw;
     }
 }

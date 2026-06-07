@@ -1,11 +1,11 @@
-package com.licht_meilleur.blue_student.ai.only;
+package com.licht_meilleur.blue_student.neoforge.ai.only;
 
 import com.licht_meilleur.blue_student.entity.HikariEntity;
 import net.minecraft.world.entity.LivingEntity;
 import com.licht_meilleur.blue_student.entity.NozomiEntity;
 import com.licht_meilleur.blue_student.entity.TrainEntity;
 import com.licht_meilleur.blue_student.entity.go_go_train.GoGoTrainEntity;
-import com.licht_meilleur.blue_student.registry.ModEntities;
+import com.licht_meilleur.blue_student.neoforge.registry.ModEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;

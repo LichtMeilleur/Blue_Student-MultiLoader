@@ -1,11 +1,11 @@
-package com.licht_meilleur.blue_student.registry;
+package com.licht_meilleur.blue_student.neoforge.registry;
 
-import com.licht_meilleur.blue_student.BlueStudentMod;
+import com.licht_meilleur.blue_student.neoforge.BlueStudentMod;
 import com.licht_meilleur.blue_student.block.entity.CraftChamberBlockEntity;
 import com.licht_meilleur.blue_student.inventory.CraftChamberMenuData;
-import com.licht_meilleur.blue_student.inventory.CraftChamberScreenHandler;
+import com.licht_meilleur.blue_student.neoforge.inventory.CraftChamberScreenHandler;
 import com.licht_meilleur.blue_student.inventory.StudentMenuData;
-import com.licht_meilleur.blue_student.inventory.StudentScreenHandler;
+import com.licht_meilleur.blue_student.neoforge.inventory.StudentScreenHandler;
 import com.licht_meilleur.blue_student.inventory.StudentInventory;
 import com.licht_meilleur.blue_student.student.IStudentEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
