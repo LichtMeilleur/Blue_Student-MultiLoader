@@ -1,0 +1,98 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+}
+
+version = rootProject.mod_version
+group = rootProject.mod_group_id
+
+base {
+	archivesName = rootProject.mod_id
+}
+
+repositories {
+	maven {
+		url = "https://cursemaven.com/"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"${rootProject.mod_id}" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "../common/src/main/java"
+		}
+		resources {
+			srcDir "../common/src/main/resources"
+		}
+	}
+	client {
+		java {
+			srcDir "src/client/java"
+			srcDir "../common/src/client/java"
+		}
+		resources {
+			srcDir "src/client/resources"
+			srcDir "../common/src/client/resources"
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+
+	implementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+
+	implementation "curse.maven:geckolib-388172:7806318"
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	inputs.property "archivesName", project.base.archivesName
+
+	from(rootProject.file("LICENSE")) {
+		rename { "${it}_${inputs.properties.archivesName}" }
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = rootProject.mod_id
+			from components.java
+		}
+	}
+}
